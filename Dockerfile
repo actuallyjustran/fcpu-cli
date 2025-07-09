@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install FarmCPUpp R dependencies
-RUN R -e "install.packages(c('remotes', 'Rcpp', 'data.table', 'optparse', 'vcfR', 'bigmemory'), repos='https://cloud.r-project.org/')"
+RUN R -e "install.packages(c('remotes', 'Rcpp', 'data.table', 'optparse', 'vcfR', 'bigmemory', 'ggplot2', 'qqman'), repos='https://cloud.r-project.org/')"
 
 # Install FarmCPUpp
 RUN R -e "remotes::install_github('amkusmec/FarmCPUpp')"

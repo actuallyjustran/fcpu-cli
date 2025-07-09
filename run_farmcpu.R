@@ -80,6 +80,43 @@ rownames(myGD) <- myGD_df$Taxa
 cat("Running FarmCPUpp\n")
 result <- FarmCPUpp::farmcpu(Y = myY, GD = myGD, GM = myGM)
 
+# --- Plotting Section ---
+
+library(ggplot2)
+library(qqman)
+
+# Extract results for the first trait (assuming one trait for simplicity)
+trait_name <- names(result)[1]
+gwas_df <- result[[trait_name]]$GWAS
+
+if (!is.null(gwas_df) && nrow(gwas_df) > 0) {
+  # Save raw GWAS results
+  write.csv(gwas_df, paste0("FarmCPUpp_", trait_name, ".csv"), row.names = FALSE)
+
+  # Filter out rows with valid p-values
+  gwas_clean <- subset(gwas_df, is.finite(p.value) & !is.na(Chromosome) & !is.na(Position))
+
+  if (nrow(gwas_clean) == 0) {
+    cat("⚠No valid GWAS results to plot.\n")
+  } else {
+    # Manhattan plot
+    png(paste0("FarmCPUpp_", trait_name, "_manhattan.png"), width = 1000, height = 600)
+    manhattan(gwas_clean, chr = "Chromosome", bp = "Position", snp = "SNP", p = "p.value", 
+              main = paste("Manhattan Plot -", trait_name))
+    dev.off()
+
+    # QQ plot
+    png(paste0("FarmCPUpp_", trait_name, "_qq.png"), width = 600, height = 600)
+    qq(gwas_clean$p.value, main = paste("QQ Plot -", trait_name))
+    dev.off()
+
+    cat("Plots generated for", trait_name, "\n")
+  }
+
+} else {
+  cat("⚠️ No GWAS results were returned. Check input data.\n")
+}
+
 # ---- Check results ----
 cat("Inspecting result object...\n")
 str(result)  # diagnostic: show result contents
