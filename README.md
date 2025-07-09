@@ -14,7 +14,7 @@ This repository provides a command-line interface for running GWAS (Genome-Wide 
 
 ## Installation
 
-This wrapper requires the installation of a Docker such as [`Docker Desktop`](https://www.docker.com/products/docker-desktop/). Run the following script:
+This wrapper requires the installation of a Docker program, such as [`Docker Desktop`](https://www.docker.com/products/docker-desktop/). Run the following script in CMD or WSL:
 
 ```docker build -t farmcpupp-cli .```
 
@@ -23,6 +23,8 @@ The required dependencies are baked into the Dockerfile.
 An example of a command line for usage after building the container is shown below:
 
 ```docker run --rm -v $(pwd):/app farmcpupp-cli --pheno test-pheno.csv --vcf test.vcf```
+
+Note: ```$(pwd)``` changes to ```"$PWD"``` when going from CMD to WSL
 
 
 ## Input Requirements
