@@ -1,7 +1,7 @@
 
 # fcpu-cli
 
-This repository provides a command-line interface for running GWAS (Genome-Wide Association Studies) using the high-performance [`FarmCPUpp`](https://github.com/ArtemZhou/FarmCPUpp) R package. It allows researchers to analyze genetic association using genotype and phenotype input files, supporting both `.csv` and `.vcf` formats.
+This repository provides a command-line interface for running Genome-Wide Association Studies (GWAS) using the high-performance [`FarmCPUpp`](https://github.com/ArtemZhou/FarmCPUpp) R package. It allows researchers to analyze genetic association using genotype and phenotype input files, supporting both `.csv` and `.vcf` formats.
 
 ## Functions
 - Runs GWAS via `FarmCPUpp::farmcpu()`
@@ -11,6 +11,7 @@ This repository provides a command-line interface for running GWAS (Genome-Wide 
 - Automatically converts data to `big.matrix`, a required format for FarmCPUpp
 - Auto checks chromosome format
 - Saves trait-specific GWAS results to CSV
+- Generates Manhattan and QQ plots
 
 ## Installation
 
@@ -33,7 +34,7 @@ Note: ```$(pwd)``` changes to ```"$PWD"``` when going from CMD to WSL
 A phenotype CSV file that:
 - Has a `Taxa` column
 - Has Trait columns
-- Is comma delimited
+- Is comma-delimited
 
 Example:
 ```csv
@@ -76,14 +77,15 @@ Rscript run_farmcpupp.R --pheno test-pheno.csv --vcf test.vcf
 Rscript run_farmcpupp.R --pheno test-pheno.csv --geno test-gd.csv --map test-gm.csv
 ```
 
-## 📤 Output
+## Output
 
-One result CSV per trait:
-```
-FarmCPUpp_<trait>.csv
-```
+- `FarmCPUpp_<trait>.csv` – GWAS results per trait
+- `FarmCPUpp_<trait>_manhattan.png` – Manhattan plot of p-values
+- `FarmCPUpp_<trait>_qq.png` – QQ plot of observed vs expected p-values
 
-Includes:
+If the GWAS model produces valid p-values, plots will be generated automatically.
+
+GWAS Results include:
 - SNP
 - Chromosome
 - Position
