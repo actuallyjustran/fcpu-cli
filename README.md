@@ -8,7 +8,7 @@ This repository provides a command-line interface for running GWAS (Genome-Wide 
 - Supports the following inputs:
     - VCF (`--vcf`)
     - CSV Genotype and Map files (`--geno`, `--map`)
-- Autmatically converts data to `big.matrix`, a required format for FarmCPUpp
+- Automatically converts data to `big.matrix`, a required format for FarmCPUpp
 - Auto checks chromosome format
 - Saves trait-specific GWAS results to CSV
 
