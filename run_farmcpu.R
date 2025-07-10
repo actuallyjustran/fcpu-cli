@@ -3,6 +3,17 @@ library(optparse)
 library(vcfR)
 library(bigmemory)
 
+# ---- Helper Function for csv/tsv detection#
+read_input_file <- function(filename) {
+  if (grepl("\\.tsv$", filename, ignore.case = TRUE)) {
+    return(read.delim(filename, header = TRUE))
+  } else if (grepl("\\.csv$", filename, ignore.case = TRUE)) {
+    return(read.csv(filename, header = TRUE))
+  } else {
+    stop("Unsupported file format: ", filename)
+  }
+}
+
 # ---- Command-line argument parsing ----
 option_list <- list(
   make_option("--pheno", type="character", help="Phenotype CSV file (required)"),
@@ -15,13 +26,13 @@ opt <- parse_args(OptionParser(option_list = option_list))
 # ---- Load phenotype ----
 if (is.null(opt$pheno)) stop("Error: --pheno is required.")
 cat("Loading phenotype:", opt$pheno, "\n")
-myY <- read.csv(opt$pheno, header = TRUE)
+myY <- read_input_file(opt$pheno)
 
 # ---- Load genotype and map ----
 if (!is.null(opt$geno) && !is.null(opt$map)) {
   cat("Using provided GD and GM CSV files\n")
-  myGD_df <- read.csv(opt$geno, header = TRUE)
-  myGM <- read.csv(opt$map, header = TRUE)
+  myGD_df <- read_input_file(opt$geno)
+  myGM <- read_input_file(opt$map)
 
   #Ensure Chromosome column is numeric
   myGM$Chromosome <- as.numeric(as.character(myGM$Chromosome))
@@ -31,7 +42,7 @@ if (!is.null(opt$geno) && !is.null(opt$map)) {
 
 } else if (!is.null(opt$vcf)) {
   cat("Parsing VCF:", opt$vcf, "\n")
-  vcf <- read.vcfR(opt$vcf)
+  vcf <- read.vcfR(opt$vcf, verbose = FALSE)
   gt_raw <- extract.gt(vcf, element = "GT")
 
   # Convert GT to 0/1/2
