@@ -83,6 +83,11 @@ Rscript run_farmcpupp.R --pheno test-pheno.csv --geno test-gd.csv --map test-gm.
 - `FarmCPUpp_<trait>_manhattan.png` – Manhattan plot of p-values
 - `FarmCPUpp_<trait>_qq.png` – QQ plot of observed vs expected p-values
 
+![Manhattan plot]([https://raw.githubusercontent.com/yourusername/farmcpupp/main/images/example_qq.png](https://github.com/actuallyjustran/fcpu-cli/blob/cd41c80f3e5cb6238d22c67c5c2e910b5c0b8831/results/FarmCPUpp_TestPheno_manhattan.png))
+
+![QQ plot](https://github.com/actuallyjustran/fcpu-cli/blob/cd41c80f3e5cb6238d22c67c5c2e910b5c0b8831/results/FarmCPUpp_TestPheno_qq.png)
+
+
 If the GWAS model produces valid p-values, plots will be generated automatically.
 
 GWAS Results include:
