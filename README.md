@@ -1,7 +1,7 @@
 
 # fcpu-cli
 
-This repository provides a command-line interface for running Genome-Wide Association Studies (GWAS) using the high-performance [`FarmCPUpp`](https://github.com/ArtemZhou/FarmCPUpp) R package. It allows researchers to analyze genetic association using genotype and phenotype input files, supporting both `.csv` and `.vcf` formats.
+This repository provides a command-line interface for running Genome-Wide Association Studies (GWAS) using the high-performance [`FarmCPUpp`](https://github.com/ArtemZhou/FarmCPUpp) R package. It allows researchers to analyze genetic association using genotype and phenotype input files, supporting both `.csv`, `.tsv`, `.vcf`, and `.vcf.gz` formats.
 
 ## Functions
 - Runs GWAS via `FarmCPUpp::farmcpu()`
@@ -23,7 +23,7 @@ The required dependencies are baked into the Dockerfile.
 
 An example of a command line for usage after building the container is shown below:
 
-```docker run --rm -v $(pwd):/app farmcpupp-cli --pheno test-pheno.csv --vcf test.vcf```
+```docker run --rm -v "$PWD":/usr/src/app -w /usr/src/app farmcpupp Rscript run_farmcpu.R --vcf data/test-150.vcf.gz --pheno data/test-pheno.csv```
 
 Note: ```$(pwd)``` changes to ```"$PWD"``` when going from CMD to WSL
 
@@ -34,7 +34,7 @@ Note: ```$(pwd)``` changes to ```"$PWD"``` when going from CMD to WSL
 A phenotype CSV file that:
 - Has a `Taxa` column
 - Has Trait columns
-- Is comma-delimited
+- Is tab-delimited (`.tsv`) or comma-delimited (`.csv`)
 
 Example:
 ```csv
@@ -54,6 +54,7 @@ IRIS_313-8349,3.1
 
 - Must contain valid genotype calls in GT format (0/0, 0/1, 1/1)
 - Chromosome field should be numeric
+- .vcf.gz is also an accepted file
 
 #### Option 2: CSV Genotype and Map files
 
