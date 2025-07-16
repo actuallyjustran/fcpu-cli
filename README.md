@@ -17,7 +17,7 @@ This repository provides a command-line interface for running Genome-Wide Associ
 
 This wrapper requires the installation of a Docker program, such as [`Docker Desktop`](https://www.docker.com/products/docker-desktop/). Run the following script in CMD or WSL:
 
-```docker build -t farmcpupp-cli .```
+```docker build -t fcpu-cli .```
 
 The required dependencies are baked into the Dockerfile.
 
