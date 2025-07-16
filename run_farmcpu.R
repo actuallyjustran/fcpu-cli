@@ -14,6 +14,11 @@ read_input_file <- function(filename) {
   }
 }
 
+# ---- Creates results folder#
+if (!dir.exists("results")) {
+  dir.create("results", recursive = TRUE)
+}
+
 # ---- Command-line argument parsing ----
 option_list <- list(
   make_option("--pheno", type="character", help="Phenotype CSV file (required)"),
@@ -102,7 +107,7 @@ gwas_df <- result[[trait_name]]$GWAS
 
 if (!is.null(gwas_df) && nrow(gwas_df) > 0) {
   # Save raw GWAS results
-  write.csv(gwas_df, paste0("FarmCPUpp_", trait_name, ".csv"), row.names = FALSE)
+  write.csv(gwas_df, paste0("results/FarmCPUpp_", trait_name, ".csv"), row.names = FALSE)
 
   # Filter out rows with valid p-values
   gwas_clean <- subset(gwas_df, is.finite(p.value) & !is.na(Chromosome) & !is.na(Position))
@@ -111,13 +116,13 @@ if (!is.null(gwas_df) && nrow(gwas_df) > 0) {
     cat("⚠No valid GWAS results to plot.\n")
   } else {
     # Manhattan plot
-    png(paste0("FarmCPUpp_", trait_name, "_manhattan.png"), width = 1000, height = 600)
+    png(paste0("results/FarmCPUpp_", trait_name, "_manhattan.png"), width = 1000, height = 600)
     manhattan(gwas_clean, chr = "Chromosome", bp = "Position", snp = "SNP", p = "p.value", 
               main = paste("Manhattan Plot -", trait_name))
     dev.off()
 
     # QQ plot
-    png(paste0("FarmCPUpp_", trait_name, "_qq.png"), width = 600, height = 600)
+    png(paste0("results/FarmCPUpp_", trait_name, "_qq.png"), width = 600, height = 600)
     qq(gwas_clean$p.value, main = paste("QQ Plot -", trait_name))
     dev.off()
 
@@ -140,7 +145,3 @@ if (is.null(gwas_result) || nrow(gwas_result) == 0) {
   cat("No GWAS results were returned. Check trait values, marker quality, or input format.\n")
   quit(status = 0)
 }
-
-# Save GWAS result
-write.csv(gwas_result, "FarmCPUpp_results.csv", row.names = FALSE)
-cat("Results saved to FarmCPUpp_results.csv with", nrow(gwas_result), "rows.\n")
