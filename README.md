@@ -1,7 +1,7 @@
 
 # fcpu-cli
 
-This repository provides a command-line interface for running Genome-Wide Association Studies (GWAS) using the [`FarmCPUpp`](https://github.com/ArtemZhou/FarmCPUpp) package. It allows researchers to analyze genetic association using genotype and phenotype input files, supporting both `.csv`, `.tsv`, `.vcf`, and `.vcf.gz` formats.
+This repository provides a command-line interface for running Genome-Wide Association Studies (GWAS) using the [`FarmCPUpp`](https://github.com/amkusmec/FarmCPUpp) package. It allows researchers to analyze genetic association using genotype and phenotype input files, supporting both `.csv`, `.tsv`, `.vcf`, and `.vcf.gz` formats.
 
 ## Functions
 - Runs GWAS via `FarmCPUpp::farmcpu()`
