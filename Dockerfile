@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     libgit2-dev \
     git \
     build-essential \
+	&& apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Install FarmCPUpp R dependencies
