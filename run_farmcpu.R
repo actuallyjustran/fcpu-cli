@@ -126,10 +126,6 @@ if (!is.null(gwas_df) && nrow(gwas_df) > 0) {
   cat("No GWAS results were returned. Check input data.\n")
 }
 
-#  Check results 
-#cat("Inspecting result object...\n")
-#str(result)  # diagnostic: show result contents
-
 cat("Process complete. Please check ./results folder. \n")
 
 trait_name <- colnames(myY)[2]

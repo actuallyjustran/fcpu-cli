@@ -21,4 +21,4 @@ RUN R -e "remotes::install_github('amkusmec/FarmCPUpp')"
 WORKDIR /usr/src/app
 COPY . /usr/src/app
 
-CMD ["R"]
+ENTRYPOINT ["Rscript", "run_farmcpu.R"]
