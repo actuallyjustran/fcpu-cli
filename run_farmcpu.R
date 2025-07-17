@@ -130,7 +130,7 @@ if (!is.null(gwas_df) && nrow(gwas_df) > 0) {
   }
 
 } else {
-  cat("⚠️ No GWAS results were returned. Check input data.\n")
+  cat("No GWAS results were returned. Check input data.\n")
 }
 
 # ---- Check results ----
