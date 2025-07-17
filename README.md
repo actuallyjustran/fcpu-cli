@@ -24,7 +24,7 @@ The required dependencies are baked into the Dockerfile.
 An example of a command line for usage after building the container is shown below:
 
 ```CLI
- docker run --rm  -v "$PWD":/usr/src/app -w /usr/src/app   farmcpupp --pheno data/test-pheno.csv --vcf data/test-150.vcf
+ docker run --rm  -v "$PWD":/usr/src/app -w /usr/src/app farmcpupp --pheno data/test-pheno.csv --vcf data/test-150.vcf
 ```
 
 Note: ```$(pwd)``` changes to ```"$PWD"``` when going from CMD to WSL
